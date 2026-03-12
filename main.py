@@ -12,6 +12,10 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
     clock = pygame.time.Clock()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     while True:
@@ -21,9 +25,10 @@ def main():
                 return
 
         dt = clock.tick(60) / 1000
-        player.update(dt)
+        updatable.update(dt)
         screen.fill("black")
-        player.draw(screen)
+        for imag in drawable:
+            imag.draw(screen)
         pygame.display.flip()
         clock.tick(60)
 
